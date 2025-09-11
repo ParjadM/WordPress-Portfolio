@@ -12,23 +12,38 @@
     <div id="wrapper" class="hfeed">
 
         <div id="top-header">
-            <div id="main-top-header">
-                <img id="header-img" src="https://static.vecteezy.com/system/resources/previews/047/656/219/non_2x/abstract-logo-design-for-any-corporate-brand-business-company-vector.jpg" alt="logo" width="30px" height="30px">
-            </div>
+            <!-- gemini -->
+            <?php
+            // Retrieve the logo options from the database
+            $options = get_option('Header_ID_options');
+
+            // Get the logo URL from the text field
+            $logo_url_from_field = !empty($options['logo_url']) ? $options['logo_url'] : '';
+
+            // Display the logo if a URL is found
+            if (!empty($logo_url_from_field)) {
+            ?>
+                <div id="main-top-header">
+                    <img id="header-img" src="<?php echo esc_url($logo_url_from_field); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+                </div>
+            <?php
+            }
+            ?>
             <!-- middle section on top-header -->
             <?php
-            $options = get_option('PREFIX_ID_options', []);
+            $options = get_option('Header_ID_options', []);
             $phone = isset($options['wysiwyg']) && !empty($options['wysiwyg']) ? $options['wysiwyg'] : 'Text Goes Here';
             ?>
             <p id="top-middle-header"><?php echo esc_html($phone); ?></p>
             <!-- right section on top header -->
             <?php
-            $options = get_option('PREFIX_ID_options', []);
+            $options = get_option('Header_ID_options', []);
             $phone = isset($options['phone']) && !empty($options['phone']) ? $options['phone'] : '1-888-888-8888';
+            $email = isset($options['email']) && !empty($options['email']) ? $options['email'] : 'example@email.com';
             ?>
             <div id="top-right">
                 <a href="tel:<?php echo esc_attr($phone); ?>" class="info"><?php echo esc_html($phone); ?></a>
-                <a href="mailto:test@example.com" class="info">Email@example.com</a>
+                <a href="mailto:<?php echo esc_attr($email); ?>" class="info"><?php echo esc_html($email); ?></a>
             </div>
         </div>
     </div>
@@ -38,7 +53,7 @@
         <div id="branding">
             <div id="site-title" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
                 <?php
-                echo '<a id="name" href="' . esc_url(home_url('/')) . '" title="' . esc_attr(get_bloginfo('name')) . '" rel="home" itemprop="url"><span itemprop="name">' . esc_html(get_bloginfo('name')) . '</span></a>';
+                echo '<a id="name" href="' . esc_url(home_url('/Home')) . '" title="' . esc_attr(get_bloginfo('name')) . '" rel="home" itemprop="url"><span itemprop="name">' . esc_html(get_bloginfo('name')) . '</span></a>';
                 ?>
                 <div id="site-description" <?php if (!is_single()) {
                                                 echo ' itemprop="description"';
@@ -63,6 +78,7 @@
         </a>
 
     </header>
+    
     <style>
         :root {
             --easing-default: ease-in-out;
@@ -73,6 +89,7 @@
             margin: 0px;
 
         }
+        
 
         #menu {
             display: none;
@@ -104,9 +121,10 @@
             margin: 0;
             align-items: center;
             justify-content: center;
+            gap: 20px;
         }
 
-        @media only screen and (max-width: 500px) {
+        @media only screen and (max-width: 768px) {
             body {
                 margin: 0px;
                 padding: 0px;
@@ -116,7 +134,7 @@
                 padding: 0px 20px;
                 display: flex;
                 justify-content: space-between;
-                background-color: #827F35;
+                background-color: #587D71;
                 font-size: 12px;
             }
 
@@ -134,18 +152,22 @@
                 right: 0;
                 background-color: #BDFAE5;
             }
+           
 
             nav.position ul li {
                 display: block;
                 padding-right: 20px;
+            }
+            nav.position ul li a:hover {
+                background-color: white;
             }
 
             #header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                background: #BDFAE5;
-                background: linear-gradient(90deg, rgba(189, 250, 229, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+                background: #dbfff4;
+                background: linear-gradient(90deg, rgba(219, 255, 244, 1) 0%, rgba(149, 201, 183, 1) 17%, rgba(119, 181, 162, 1) 50%, rgba(151, 203, 185, 1) 85%, rgba(219, 255, 244, 1) 100%);
                 padding: 0px 20px;
             }
 
@@ -220,23 +242,15 @@
 
             @keyframes subbanana {
                 0% {
-                    color: pink;
-                }
-
-                25% {
-                    color: green;
+                    color: #8f065dff;
                 }
 
                 50% {
-                    color: blue;
-                }
-
-                75% {
-                    color: yellow;
+                    color: #051e80ff;
                 }
 
                 100% {
-                    color: red;
+                    color: #5a1fc7ff;
                 }
             }
 
@@ -311,7 +325,7 @@
 
         }
 
-        @media only screen and (min-width: 500px) {
+        @media only screen and (min-width: 768px) {
             body {
                 margin: 0px;
                 padding: 0px;
@@ -321,7 +335,7 @@
                 padding: 0px 20px;
                 display: flex;
                 justify-content: space-between;
-                background-color: #827F35;
+                background-color: #587D71;
             }
 
             #main-top-header {
@@ -337,6 +351,9 @@
             }
 
             #menu ul {
+                display: flex;
+                gap: 20px;
+                font-size: 1.5rem;
                 list-style-type: none;
             }
 
@@ -344,15 +361,9 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                background: #BDFAE5;
-                background: linear-gradient(90deg, rgba(189, 250, 229, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+                background: #dbfff4;
+                background: linear-gradient(90deg, rgba(219, 255, 244, 1) 0%, rgba(149, 201, 183, 1) 17%, rgba(119, 181, 162, 1) 50%, rgba(151, 203, 185, 1) 85%, rgba(219, 255, 244, 1) 100%);
                 padding: 0px 20px;
-            }
-
-            #branding {
-                display: flex;
-                justify-content: center;
-
             }
 
             a {
@@ -402,23 +413,15 @@
 
             @keyframes colorbanana {
                 0% {
-                    color: red;
-                }
-
-                25% {
-                    color: yellow;
+                    color: #5a1fc7ff;
                 }
 
                 50% {
-                    color: blue;
-                }
-
-                75% {
-                    color: green;
+                    color: #051e80ff;
                 }
 
                 100% {
-                    color: pink;
+                    color: #8f065dff;
                 }
             }
 
@@ -428,33 +431,25 @@
 
             @keyframes subbanana {
                 0% {
-                    color: pink;
-                }
-
-                25% {
-                    color: green;
+                    color: #8f065dff;
                 }
 
                 50% {
-                    color: blue;
-                }
-
-                75% {
-                    color: yellow;
+                    color: #051e80ff;
                 }
 
                 100% {
-                    color: red;
+                    color: #5a1fc7ff;
                 }
             }
 
         }
     </style>
-
-    <!-- 
-Hex:#827F35
-Hex:#BDFAE5
-Hex:#109836
-Hex:#B8F3A0 -->
     <div id="container">
         <main id="content" role="main">
+
+            <!-- 
+        #587D71
+        #BDFAE5
+        #1B1B1E
+        #96031A -->

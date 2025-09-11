@@ -2,12 +2,43 @@
 <?php get_sidebar(); ?>
 </div>
 <footer id="footer" role="contentinfo">
+    <?php
+    $options = get_option('Footer_ID_options', []);
+    $footer = isset($options['footer_wysiwyg']) && !empty($options['footer_wysiwyg']) ? $options['footer_wysiwyg'] : 'Numero Uno Web solutions';
+    ?>
     <div id="first_section">
-        <p>Numero Uno Web solutions</p>
+        <p><?php echo esc_html($footer); ?></p>
     </div>
     <div id="icon">
-        <a class="footer-img" id="linkedin-img" href="https://ca.linkedin.com/in/parjadminooei"><img src="https://tse4.mm.bing.net/th/id/OIP.1R2nLh9Gdbpa75yVbtTFYgHaHY?rs=1&pid=ImgDetMain&o=7&rm=3" alt="linkedin" height="50px"></a>
-        <a class="footer-img" id="github-img" href="https://github.com/ParjadM"><img src="https://logos-world.net/wp-content/uploads/2020/11/GitHub-Logo.png" alt="github" height="50px"></a>
+        <?php
+        $social_options = get_option('Footer_ID_options');
+        $linkedin_url = isset($social_options['linkedin']) ? esc_url($social_options['linkedin']) : '';
+        $github_url = isset($social_options['github']) ? esc_url($social_options['github']) : '';
+        $instagram_url = isset($social_options['instagram']) ? esc_url($social_options['instagram']) : '';
+        $facebook_url = isset($social_options['facebook']) ? esc_url($social_options['facebook']) : '';
+
+        if (!empty($linkedin_url)) {
+            echo '<a class="footer-img" id="linkedin-img" href="' . $linkedin_url . '">';
+            echo '<img src="https://cdn.freebiesupply.com/logos/large/2x/linkedin-icon-logo-png-transparent.png" alt="linkedin" height="50px">';
+            echo '</a>';
+        }
+
+        if (!empty($github_url)) {
+            echo '<a class="footer-img" id="github-img" href="' . $github_url . '">';
+            echo '<img src="https://logos-world.net/wp-content/uploads/2020/11/GitHub-Logo.png" alt="github" height="50px">';
+            echo '</a>';
+        }
+        if (!empty($instagram_url)) {
+            echo '<a class="footer-img" id="instagram-img" href="' . $instagram_url . '">';
+            echo '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="github" height="50px">';
+            echo '</a>';
+        }
+        if (!empty($facebook_url)) {
+            echo '<a class="footer-img" id="facebook-img" href="' . $facebook_url . '">';
+            echo '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png" alt="github" height="50px">';
+            echo '</a>';
+        }
+        ?>
     </div>
 
     <div id="copyright">
@@ -19,7 +50,7 @@
         <a href="#top-header">Back to top</a>
     </div>
     <?php
-    $options = get_option('PREFIX_ID_options', []);
+    $options = get_option('Footer_ID_options', []);
     $page_id = isset($options['website_page']) && !empty($options['website_page']) ? $options['website_page'] : null;
 
     // Check if a page was selected before trying to display a link
@@ -63,8 +94,8 @@
         display: flex;
         justify-content: space-between;
         padding: 0px 20px;
-        background: #BDFAE5;
-        background: linear-gradient(90deg, rgba(189, 250, 229, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+        background: #dbfff4;
+        background: linear-gradient(90deg, rgba(219, 255, 244, 1) 0%, rgba(149, 201, 183, 1) 17%, rgba(119, 181, 162, 1) 50%, rgba(151, 203, 185, 1) 85%, rgba(219, 255, 244, 1) 100%);
         height: 100px;
 
     }
@@ -88,7 +119,7 @@
     }
 
     #bottom-footer {
-        background-color: #827F35;
+        background-color: #587D71;
         font-size: 20px;
         display: flex;
         align-items: center;
@@ -98,6 +129,9 @@
 
     #copyright {
         font-size: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     @keyframes glow {
@@ -114,6 +148,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 20px;
     }
 
     #middle_section a {
@@ -156,13 +191,55 @@
         transform: scale(1.5);
     }
 
+    #instagram-img {
+        transition: transform .2;
+    }
+
+    #instagram-img:hover {
+        transform: scale(1.5);
+    }
+
+    #facebook-img {
+        transition: transform .2;
+    }
+
+    #facebook-img:hover {
+        transform: scale(1.5);
+    }
+
     #copyright {
         display: flex;
         align-items: center;
         justify-content: center;
+
     }
 
-    @media only screen and (max-width: 500px) {
+    #published {
+        color: red;
+        animation: flashing 2s linear infinite;
+    }
+
+    #published:hover {
+        transform: scale(1.5);
+        color: black;
+        font-weight: bold;
+    }
+
+    @keyframes flashing {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
         #footer {
             font-size: 10px;
         }
@@ -180,7 +257,7 @@
         }
     }
 
-    @media only screen and (min-width: 500px) {
+    @media only screen and (min-width: 768px) {
         #footer {
             font-size: 14px;
         }
