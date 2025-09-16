@@ -38,8 +38,8 @@
             <!-- right section on top header -->
             <?php
             $options = get_option('Header_ID_options', []);
-            $phone = isset($options['phone']) && !empty($options['phone']) ? $options['phone'] : '1-888-888-8888';
-            $email = isset($options['email']) && !empty($options['email']) ? $options['email'] : 'example@email.com';
+            $phone = isset($options['phone']) && !empty($options['phone']) ? $options['phone'] : '';
+            $email = isset($options['email']) && !empty($options['email']) ? $options['email'] : '';
             ?>
             <div id="top-right">
                 <a href="tel:<?php echo esc_attr($phone); ?>" class="info"><?php echo esc_html($phone); ?></a>
@@ -136,6 +136,7 @@
                 justify-content: space-between;
                 background-color: #587D71;
                 font-size: 12px;
+                height: 20px;
             }
 
             #main-top-header {
@@ -336,6 +337,7 @@
                 display: flex;
                 justify-content: space-between;
                 background-color: #587D71;
+                height: 30px;
             }
 
             #main-top-header {

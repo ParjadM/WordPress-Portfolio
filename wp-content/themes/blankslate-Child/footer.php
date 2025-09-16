@@ -119,12 +119,13 @@
     }
 
     #bottom-footer {
-        background-color: #587D71;
+        /* background-color: #587D71; */
         font-size: 20px;
         display: flex;
         align-items: center;
         justify-content: space-around;
         gap: 20px;
+        background-color: #E8C9C9;
     }
 
     #copyright {
